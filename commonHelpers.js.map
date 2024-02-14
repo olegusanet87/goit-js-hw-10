@@ -1,1 +1,1 @@
-{"version":3,"file":"commonHelpers.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"commonHelpers.js","sources":["../src/js/1-timer.js"],"sourcesContent":["console.log(\"Timer\");\n\n// Описаний в документації\nimport flatpickr from \"flatpickr\";\n// Додатковий імпорт стилів\nimport \"flatpickr/dist/flatpickr.min.css\";\n\n"],"names":[],"mappings":"wEAAA,QAAQ,IAAI,OAAO"}
