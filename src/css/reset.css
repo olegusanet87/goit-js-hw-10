@@ -33,3 +33,7 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+body {
+  padding: 36px 929px 316px 156px;
+}
