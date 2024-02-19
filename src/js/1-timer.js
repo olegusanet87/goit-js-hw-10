@@ -111,10 +111,10 @@ document.querySelector('[data-start]').addEventListener("click", () => {
 			document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
 			document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
 			document.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
-
+			differenceMs -= 1000;
 
 			if (differenceMs <= 0) {
-				differenceMs = 0;
+
 				clearInterval(intervalId);
 				document.querySelector('[data-start]').disabled = false;
 				document.querySelector('#datetime-picker').disabled = false;
@@ -122,7 +122,7 @@ document.querySelector('[data-start]').addEventListener("click", () => {
 			}
 
 
-			differenceMs = differenceMs - 1000;
+
 		}, 1000);
 
 
@@ -139,9 +139,3 @@ function addLeadingZero(value) {
 	}
 
 };
-
-const inputDates = document.querySelectorAll('flatpickr - input');
-inputDates.forEach(inputDate => {
-
-	inputDate.classList.add('dataset');
-});
