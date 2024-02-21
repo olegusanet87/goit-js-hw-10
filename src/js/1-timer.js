@@ -14,38 +14,11 @@ const inputDate = document.querySelector('#datetime-picker');
 inputDate.classList.add('dataset');
 const btnStart = document.querySelector('[data-start]');
 btnStart.classList.add('startbutton');
+document.querySelector('[data-start]').disabled = true;
+//btnStart.setAttribute.disabled;
 
-btnStart.addEventListener('mouseover', function () {
-	btnStart.classList.add('hover');
-});
-
-btnStart.addEventListener('mouseout', function () {
-	btnStart.classList.remove('hover');
-});
-inputDate.addEventListener('mouseover', function () {
-	inputDate.classList.add('hover');
-});
-
-inputDate.addEventListener('mouseout', function () {
-	inputDate.classList.remove('hover');
-});
 let intervalId = null;
 let userSelectedDate = null;
-
-const options = {
-	enableTime: true,
-	time_24hr: true,
-	defaultDate: new Date(),
-	minuteIncrement: 1,
-	onClose(selectedDates) {
-		console.log(selectedDates[0]);
-		userSelectedDate = selectedDates[0];
-
-	},
-};
-
-flatpickr("#datetime-picker", options);
-
 
 function convertMs(ms) {
 	// Number of milliseconds per unit of time
@@ -68,7 +41,7 @@ function convertMs(ms) {
 
 
 function selectedDates() {
-	if (!userSelectedDate || userSelectedDate.getTime() <= new Date().getTime()) {
+	if (!userSelectedDate || userSelectedDate <= Date.now() || isNaN(userSelectedDate)) {
 		iziToast.error({
 			class: 'popup-message',
 			theme: 'dark',
@@ -82,10 +55,28 @@ function selectedDates() {
 			message: 'Please choose a date in the future',
 		});
 		document.querySelector('[data-start]').disabled = true;
+
 	} else {
+		btnStart.removeAttribute.disabled;
 		document.querySelector('[data-start]').disabled = false;
+		btnStart.classList.add('normal');
 		inputDate.classList.add('active');
 
+
+		btnStart.addEventListener('mouseover', function () {
+			btnStart.classList.add('hover');
+		});
+
+		btnStart.addEventListener('mouseout', function () {
+			btnStart.classList.remove('hover');
+		});
+		inputDate.addEventListener('mouseover', function () {
+			inputDate.classList.add('hover');
+		});
+
+		inputDate.addEventListener('mouseout', function () {
+			inputDate.classList.remove('hover');
+		});
 
 	}
 }
@@ -101,8 +92,9 @@ document.querySelector('[data-start]').addEventListener("click", () => {
 	let differenceMs = selectedDate.getTime() - currentDate.getTime();
 
 	if (differenceMs > 0) {
-		btnStart.classList.add('disable');
-		inputDate.classList.add('disable');
+
+
+
 
 		intervalId = setInterval(() => {
 
@@ -118,18 +110,34 @@ document.querySelector('[data-start]').addEventListener("click", () => {
 				clearInterval(intervalId);
 				document.querySelector('[data-start]').disabled = false;
 				document.querySelector('#datetime-picker').disabled = false;
-				btnStart.classList.remove('disable');
+
+
 			}
 
-
-
 		}, 1000);
-
-
 		document.querySelector('[data-start]').disabled = true;
 		document.querySelector('#datetime-picker').disabled = true;
+		inputDate.classList.add('disable');
+		btnStart.classList.remove('normal');
+		btnStart.classList.remove('hover');
+
+
+
 	}
 });
+
+const options = {
+	enableTime: true,
+	time_24hr: true,
+	defaultDate: new Date(),
+	minuteIncrement: 1,
+	onClose(selectedDatesArray) {
+		console.log(selectedDatesArray[0]);
+		userSelectedDate = selectedDatesArray[0];
+		selectedDates();
+	},
+};
+flatpickr("#datetime-picker", options);
 
 function addLeadingZero(value) {
 	if (value < 10) {
@@ -139,3 +147,4 @@ function addLeadingZero(value) {
 	}
 
 };
+

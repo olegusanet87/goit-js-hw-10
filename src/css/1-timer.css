@@ -48,16 +48,23 @@
 	align-items: center;
 	gap: 10px;
 	border-radius: 8px;
-	background: #4E75FF;
+	background: #CFCFCF;
+	
 }
-
+/*
 .startbutton.disable {
 		background: #CFCFCF;
 }
-
+*/
 .startbutton.hover {
 	background: #6C8CFF;
 }
+
+
+.startbutton.normal{
+background: #4E75FF;
+}
+
 
 .value {
 	color: #2E2F42;
